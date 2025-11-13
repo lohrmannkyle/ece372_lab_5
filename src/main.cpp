@@ -7,7 +7,7 @@
 #include "switch.h"
 
 //switch debounce statemachine
-typedef enum {wait_press, pressed, wait_release, released} debounce_state;
+typedef enum {wait_press, pressed, wait_release, released} debounce;
 
 //8x8 Display 
 typedef enum {smiley, frowny} faceDisplay;
