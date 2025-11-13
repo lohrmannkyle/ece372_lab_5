@@ -23,14 +23,14 @@ void initT4PWM(){
 //Pin 7 OC4B PH4
     DDRH |= (1<<DDH4);
 
-//Timer 3
+//Timer 4
     //Set mode fast PWM, prescaler of 1, non-inverting mode
     TCCR4A |= (1 << WGM40) | (1<<WGM41) | (1<<COM4B1);
     TCCR4A &= ~(1<<COM4B0);
     TCCR4B |= (1 << WGM42) | (1<<CS40) | (1<<WGM43);
 
     TCNT4 = 0;
-    OCR4A = 1500;
+    OCR4A = 10000;
     OCR4B = 0; //sets inital duty cycle to 0
 
 }
