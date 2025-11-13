@@ -2,9 +2,6 @@
 #include <avr/io.h>
 #include "timer.h"
 
-
-using namespace std;
-
 //switch debounce statemachine
 typedef enum {wait_press, pressed, wait_release, released} debounce_state;
 
