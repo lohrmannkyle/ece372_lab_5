@@ -24,7 +24,7 @@ int main(){
     initT4PWM();
 
     //set duty cycle
-    setT4DutyCycle(.5);
+    setT4DutyCycle(.75);
     //Enable interrupts
     sei();
 

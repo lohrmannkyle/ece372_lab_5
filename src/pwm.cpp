@@ -30,7 +30,7 @@ void initT4PWM(){
     TCCR4B |= (1 << WGM42) | (1<<CS40) | (1<<WGM43);
 
     TCNT4 = 0;
-    OCR4A = 10000;
+    OCR4A = 8000;
     OCR4B = 0; //sets inital duty cycle to 0
 
 }
@@ -40,5 +40,5 @@ void setT3DutyCycle(double DutyCycle){
 }
 
 void setT4DutyCycle(double DutyCycle){
-    OCR4B = (1500*DutyCycle);
+    OCR4B = (8000*DutyCycle);
 }
