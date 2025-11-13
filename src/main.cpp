@@ -7,10 +7,14 @@
 #include "switch.h"
 
 //switch debounce statemachine
-typedef enum {wait_press, pressed, wait_release, released} debounce;
+typedef enum {wait_press, pressed, wait_release, released} debounce_state;
 
 //8x8 Display 
 typedef enum {smiley, frowny} faceDisplay;
+
+//global volitile vars
+volatile debounce_state debounce = wait_press;
+volatile faceDisplay currentFace = smiley;
 
 int main(){
 
