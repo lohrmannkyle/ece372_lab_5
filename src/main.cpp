@@ -17,9 +17,42 @@ int main(){
     //initializations
     initTimer();
     
+    //Enable interrupts
+    sei();
 
+    /////////////////////////////////MAIN While Loop////////////////////////////////////
+    while(1){
+        //handle switch debouncing
+    //Debounce state
+        switch (debounce){
+          case wait_press:
+            timerDelay_ms(1);
+          break;
 
+          case pressed:
+            timerDelay_ms(1);
+            debounce = wait_release;
+          break;
 
+          case wait_release:
+            timerDelay_ms(1);
+          break;
+
+          case released:
+            timerDelay_ms(1);
+            debounce = wait_press;
+            //change logic here
+            break;
 
     return 0;
+}
+
+//button press inturrupt
+ISR (INT0_vect){//PCINT1_vect) {
+  if(debounce == wait_press){
+    debounce = pressed;
+  }
+  else if(debounce == wait_release){
+      debounce = released;
+  }
 }
