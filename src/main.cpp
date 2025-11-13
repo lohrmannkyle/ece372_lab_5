@@ -47,6 +47,8 @@ int main(){
             debounce = wait_press;
             //change logic here
             break;
+        }
+    }
 
     return 0;
 }
