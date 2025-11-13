@@ -18,6 +18,9 @@ volatile faceDisplay currentFace = smiley;
 
 int main(){
 
+    //Serial.begin(9600);
+    //Serial.println("test1");
+
     //initializations
     initTimer();
     initSwitchPin();
@@ -30,6 +33,7 @@ int main(){
 
     /////////////////////////////////MAIN While Loop////////////////////////////////////
     while(1){
+      //Serial.println("testing");
         //handle switch debouncing
     //Debounce state
         switch (debounce){

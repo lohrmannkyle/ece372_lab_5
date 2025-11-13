@@ -20,6 +20,7 @@ void initT3PWM(){
 }
 
 void initT4PWM(){
+    Serial.println("Init entered");
 //Pin 7 OC4B PH4
     DDRH |= (1<<DDH4);
 
@@ -40,5 +41,6 @@ void setT3DutyCycle(double DutyCycle){
 }
 
 void setT4DutyCycle(double DutyCycle){
+    //Serial.println("Duty Set");
     OCR4B = (8000*DutyCycle);
 }
