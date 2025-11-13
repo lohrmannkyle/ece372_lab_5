@@ -11,6 +11,9 @@ typedef enum {wait_press, pressed, wait_release, released} debounce_state;
 typedef enum {smiley, frowny} faceDisplay;
 
 int main(){
+
+    //initializations
+    initTimer();
     
     cout << "wowza garbanza" << endl;
 
