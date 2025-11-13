@@ -16,7 +16,11 @@ int main(){
 
     //initializations
     initTimer();
-    
+    initSwitchPin();
+    initT4PWM();
+
+    //set duty cycle
+    setT4DutyCycle(.5);
     //Enable interrupts
     sei();
 
