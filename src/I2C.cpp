@@ -44,7 +44,7 @@ void Read_from(unsigned char Slave_Address, unsigned char MEM_ADDRESS){ //slave 
         trigger_action;
         wait_for_completion;
        //sets data register to mem address 
-        TWDR = Data;
+        TWDR = MEM_ADDRESS;
         trigger_action;
         wait_for_completion;
     StartI2C_Trans((Slave_Address<<1)& 0x01); //start read
