@@ -43,7 +43,10 @@ void Read_from(unsigned char Slave_Address, unsigned char MEM_ADDRESS){ //slave 
     StartI2C_Trans((Slave_Address<<1)|0xFE); // start write
         trigger_action;
         wait_for_completion;
-    Write(MEM_ADDRESS);
+       //sets data register to mem address 
+        TWDR = Data;
+        trigger_action;
+        wait_for_completion;
     StartI2C_Trans((Slave_Address<<1)& 0x01); //start read
         trigger_action; TWCR |= (1<<TWEA); // sends ack 
         wait_for_completion; 
