@@ -8,7 +8,7 @@ void StartI2C_Trans(unsigned char);
 
 void StopI2C_Trans();
 
-void Write(unsigned char);
+void Write(unsigned char, unsigned char);
 
 void Read_from(unsigned char, unsigned char);
 

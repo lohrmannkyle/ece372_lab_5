@@ -20,9 +20,7 @@ PRR0 &= ~(1 << PRTWI);  //Restart oscilator
 void StartI2C_Trans(unsigned char Slave_Address){
     TWCR = ((1 << TWEN) | (1 << TWINT) | (1 << TWSTA));
     wait_for_completion;
-    TWDR = ((Slave_Address)); // slave address, needs to already have been shifted with read/write bit durring call
-    trigger_action;
-    wait_for_completion;
+    TWDR = ((Slave_Address)); 
 }
 
 void StopI2C_Trans(){
@@ -32,7 +30,10 @@ void StopI2C_Trans(){
 
 }
 
-void Write(unsigned char Data){
+void Write(unsigned char Slave_Address, unsigned char Data){
+    StartI2C_Trans((Slave_Address<<1)|0xFE);
+    trigger_action;
+    wait_for_completion;
     TWDR = Data;
     trigger_action;
     wait_for_completion;
