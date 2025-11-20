@@ -16,8 +16,10 @@ void initSwitchPin(){
 // kyles
 
 void init_switch(){
-    // enable interrupts on pin 0 (PCINT8)
+    // enable interrupts on pin A8 (PCINT16)
 
-    PCICR |= (1 << PCIE1);
-    PCMSK1 |= (1 << PCINT8);
+    DDRK &= ~(1 << DDK0);
+    PORTK |= (1 << PORTK0);
+    PCICR |= (1 << PCIE2);
+    PCMSK2 |= (1 << PCINT16);
 }
