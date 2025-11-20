@@ -1,72 +1,78 @@
 #include <Arduino.h>
 #include <avr/io.h>
+
 #include "timer.h"
-#include "cpi.h"
-#include "I2C.h"
-#include "pwm.h"
-#include "switch.h"
+#include "spi.h"
+#include "i2c.h"
 
-//switch debounce statemachine
-typedef enum {wait_press, pressed, wait_release, released} debounce_state;
+typedef enum {WAIT_PRESS, DEBOUNCE_PRESS, WAIT_RELEASE, DEBOUNCE_RELEASE} switch_state;
+typedef enum {SMILEY, FROWNY} face_state;
 
-//8x8 Display 
-typedef enum {smiley, frowny} faceDisplay;
-
-//global volitile vars
-volatile debounce_state debounce = wait_press;
-volatile faceDisplay currentFace = smiley;
+volatile switch_state state = WAIT_PRESS;
+volatile face_state face = SMILEY;
 
 int main(){
+    init_timer_1();
+    init_timer_3();
+    init_spi();
+    init_matrix();
+    
+    // toggle exists to allow silencing the alarm but as soon as accelerometer is back within accepted axis values
+    // it resets. So say you go smiley -> frowny (alarm activates) -> button (silences) -> smiley -> frowny (alarm reactivates)
+    int toggle = 0;
 
-    //Serial.begin(9600);
-    //Serial.println("test1");
-
-    //initializations
-    initTimer();
-    initSwitchPin();
-    initT4PWM();
-
-    //set duty cycle
-    setT4DutyCycle(.75);
-    //Enable interrupts
-    sei();
-
-    /////////////////////////////////MAIN While Loop////////////////////////////////////
     while(1){
-      //Serial.println("testing");
-        //handle switch debouncing
-    //Debounce state
-        switch (debounce){
-          case wait_press:
-            timerDelay_ms(1);
-          break;
 
-          case pressed:
-            timerDelay_ms(1);
-            debounce = wait_release;
-          break;
+        switch(state){
+            case WAIT_PRESS: {
+                break;
+            }
 
-          case wait_release:
-            timerDelay_ms(1);
-          break;
+            case DEBOUNCE_PRESS: {
+                delay_ms(40);
+                state = WAIT_RELEASE;
 
-          case released:
-            timerDelay_ms(1);
-            debounce = wait_press;
-            //change logic here
-            break;
+                if (face == FROWNY && toggle == 0) {
+                    toggle = 1;
+                    update_duty(0);
+                }
+                break;
+            }
+
+            case WAIT_RELEASE: {
+                break;
+            }
+
+            case DEBOUNCE_RELEASE: {
+                delay_ms(40);
+                state = WAIT_PRESS;
+                break;
+            }
+        }
+        
+    }
+
+
+    if (face == SMILEY) {
+        set_smile();
+        toggle = 0;
+    } else { 
+        set_frown();
+        if (toggle == 0){
+            update_duty(.6);
         }
     }
 
-    return 0;
+
+
 }
 
 //button press inturrupt
-ISR (INT0_vect){//PCINT1_vect) {
-  if(debounce == wait_press){
-    debounce = pressed;
-  }
-  else if(debounce == wait_release){
-      debounce = released;
-  }
+ISR(PCINT1_vect){
+    if (state == WAIT_PRESS){
+        state = DEBOUNCE_PRESS;
+    } else if (state == WAIT_RELEASE) {
+        state = DEBOUNCE_RELEASE;
+    }
+
 }

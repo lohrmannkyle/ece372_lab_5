@@ -10,3 +10,14 @@ void initSwitchPin(){
     PCICR |= (1 << PCIE0);
     PCMSK0 |= (1 << PCINT3);
 }
+
+
+
+// kyles
+
+void init_switch(){
+    // enable interrupts on pin 0 (PCINT8)
+
+    PCICR |= (1 << PCIE1);
+    PCMSK1 |= (1 << PCINT8);
+}

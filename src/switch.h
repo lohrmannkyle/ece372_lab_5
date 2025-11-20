@@ -3,4 +3,8 @@
 
 void initSwitchPin();
 
+// kyles
+void init_switch();
+
+
 #endif
