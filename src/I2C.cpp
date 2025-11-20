@@ -22,7 +22,8 @@ void StartI2C_Trans(unsigned char Slave_Address){
 }
 
 void StopI2C_Trans(){
-
+    TWCR = ((1 << TWEN) | (1 << TWINT) | (1 <<TWSTO));
+    wait_for_completion;
 
 }
 
