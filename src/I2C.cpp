@@ -41,6 +41,7 @@ void Read_from(unsigned char Slave_Address, unsigned char MEM_ADDRESS){
     StartI2C_Trans((Slave_Address<<1)|0xFE); // start write
     Write(MEM_ADDRESS);
     StartI2C_Trans((Slave_Address<<1)& 0x01); //start read
+    TWDR = Slave_Address + 1;
     trigger_action; //TWCR |= () master ack bit???
     wait_for_completion;
     trigger_action;
