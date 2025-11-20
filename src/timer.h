@@ -8,6 +8,7 @@ void timerDelay_ms(unsigned int);
 void init_timer_1();
 void init_timer_3();
 void update_duty(double duty);
+void chirp();
 void delay_ms(int);
 
 bool alarm_off();

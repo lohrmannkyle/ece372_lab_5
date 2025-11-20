@@ -84,6 +84,17 @@ void update_duty(double duty){
     OCR3A = int(duty * ICR3);
 }
 
+
+void chirp(){
+    for (int i = 1000; i <= 4000; i += 100){
+        ICR3 = i;
+        update_duty(.6);
+        delay_ms(5);
+    }
+    ICR3 = 1000;
+    update_duty(.6);
+}
+
 void delay_ms(int delay){
     unsigned count = 0;
 
