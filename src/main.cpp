@@ -4,6 +4,7 @@
 #include "timer.h"
 #include "spi.h"
 #include "I2C.h"
+#include "switch.h"
 
 typedef enum {WAIT_PRESS, DEBOUNCE_PRESS, WAIT_RELEASE, DEBOUNCE_RELEASE} switch_state;
 typedef enum {SMILEY, FROWNY} face_state;
@@ -15,6 +16,7 @@ int main(){
   Serial.begin(9600);
   init_timer_1();
   init_timer_3();
+  init_switch();
   sei();
   init_spi();
   init_matrix();
@@ -73,7 +75,6 @@ ISR(PCINT2_vect){
     Serial.println("in ISR");
     if (state == WAIT_PRESS){
         state = DEBOUNCE_PRESS;
-        face == FROWNY;
     } else if (state == WAIT_RELEASE) {
         state = DEBOUNCE_RELEASE;
     }
