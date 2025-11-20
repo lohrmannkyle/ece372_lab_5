@@ -38,7 +38,7 @@ void Write(unsigned char Data){
     wait_for_completion;
 }
 
-void Read_from(unsigned char Slave_Address, unsigned char MEM_ADDRESS){
+void Read_from(unsigned char Slave_Address, unsigned char MEM_ADDRESS){ //slave address needs to be 7 bit, 8 bit mem address
     StartI2C_Trans((Slave_Address<<1)|0xFE); // start write
         trigger_action;
         wait_for_completion;
