@@ -17,8 +17,8 @@ PRR0 &= ~(1 << PRTWI);  //Restart oscilator
 }
 
 void StartI2C_Trans(unsigned char Slave_Address){
-
-
+    TWCR = ((1 << TWEN) | (1 << TWINT) | (1 << TWSTA));
+    wait_for_completion;
 }
 
 void StopI2C_Trans(){
