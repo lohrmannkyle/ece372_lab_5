@@ -20,6 +20,9 @@ PRR0 &= ~(1 << PRTWI);  //Restart oscilator
 void StartI2C_Trans(unsigned char Slave_Address){
     TWCR = ((1 << TWEN) | (1 << TWINT) | (1 << TWSTA));
     wait_for_completion;
+    TWDR = ((Slave_Address<<1)); // slave address with write bit
+    trigger_action;
+    wait_for_completion;
 }
 
 void StopI2C_Trans(){
@@ -35,13 +38,19 @@ void Write(unsigned char Data){
 }
 
 void Read_from(unsigned char Slave_Address, unsigned char MEM_ADDRESS){
-
+    StartI2C_Trans((Slave_Address<<1)|0xFE);
+    Write(MEM_ADDRESS);
+    TWDR = ((Slave_Address<<1)& 0x01);
+    trigger_action; //TWCR |= () master ack bit???
+    wait_for_completion;
+    trigger_action;
+    wait_for_completion;
+    StopI2C_Trans();
 
 }
 
 unsigned char Read_data(){
     unsigned char x;
-
-
+        x = TWDR;
     return x;
 }
