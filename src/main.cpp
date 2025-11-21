@@ -31,9 +31,11 @@ int main(){
   while(1){
     
     Read_from(0x25, 0x3B); //X_high
+    StopI2C_Trans();
     unsigned char XHIGH = Read_data();
 
     Read_from(0x25, 0x3C); //X_Low
+    StopI2C_Trans();
     unsigned char XLOW = Read_data();
 
     unsigned char X_data = (XHIGH & 0xF0) | (XLOW & 0X0F);

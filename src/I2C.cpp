@@ -5,7 +5,7 @@
 #define trigger_action (TWCR = (1<<TWINT)|(1<<TWEN)); //sets interrupt and enable bits to 1
 
 void InitI2C(){
-PRR0 &= ~(1 << PRTWI);  //Restart oscilator
+    PRR0 &= ~(1 << PRTWI);  //Restart oscilator
   
 // generate a 100kHz clock rate
 // SCL freq = 16Mhz/(16 + 2(TWBR)*1)
