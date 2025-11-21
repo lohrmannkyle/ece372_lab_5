@@ -21,6 +21,7 @@ void InitI2C(){
 
 void StartI2C_Trans(unsigned char Slave_Address){
     Serial.println("StartI2C");
+    Serial.println(Slave_Address);
     TWCR = ((1 << TWEN) | (1 << TWINT) | (1 << TWSTA));
     wait_for_completion;
     TWDR = Slave_Address; 
