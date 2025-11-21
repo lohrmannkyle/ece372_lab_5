@@ -77,7 +77,7 @@ int main(){
   } else { 
       set_frown();
       if (toggle == 0){
-          update_duty(.6);
+          chirp();
       }
     }
     
@@ -87,7 +87,6 @@ int main(){
 
 //button press inturrupt
 ISR(PCINT2_vect){
-    Serial.println("in ISR");
     if (state == WAIT_PRESS){
         state = DEBOUNCE_PRESS;
     } else if (state == WAIT_RELEASE) {
