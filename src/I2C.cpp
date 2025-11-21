@@ -23,7 +23,8 @@ void StartI2C_Trans(unsigned char Slave_Address){
     Serial.println("StartI2C");
     TWCR = ((1 << TWEN) | (1 << TWINT) | (1 << TWSTA));
     wait_for_completion;
-    TWDR = ((Slave_Address)); 
+    TWDR = Slave_Address; 
+    Serial.println("StartI2C end");
 }
 
 void StopI2C_Trans(){
