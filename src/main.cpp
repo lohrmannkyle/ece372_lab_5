@@ -13,7 +13,7 @@ volatile switch_state state = WAIT_PRESS;
 volatile face_state face = SMILEY;
 
 int main(){
-  Serial.begin(9600/2);
+  Serial.begin(9600);
   init_timer_1();
   init_timer_3();
   init_switch();
@@ -69,7 +69,9 @@ int main(){
         state = WAIT_PRESS;
         break;
     }
-}
+  }
+  
+  chirp();
 
         
   if (face == SMILEY) {
