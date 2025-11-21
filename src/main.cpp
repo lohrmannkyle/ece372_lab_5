@@ -27,7 +27,7 @@ int main(){
   int toggle = 0;
   StartI2C_Trans(0x25); //slave 0 address
   Write(0x6B, 0x00);
-
+  chirp();
   while(1){
     
     Read_from(0x25, 0x3B); //X_high
@@ -71,7 +71,7 @@ int main(){
         break;
     }
   }
-  
+
   chirp();
 
         
