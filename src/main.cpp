@@ -20,14 +20,14 @@ int main(){
   sei();
   init_spi();
   init_matrix();
+  InitI2C();
   set_smile();
     
   // toggle exists to allow silencing the alarm but as soon as accelerometer is back within accepted axis values
   // it resets. So say you go smiley -> frowny (alarm activates) -> button (silences) -> smiley -> frowny (alarm reactivates)
   int toggle = 0;
-  StartI2C_Trans(0x25); //slave 0 address
   Write(0x6B, 0x00);
-  chirp();
+  StopI2C_Trans();
   while(1){
     
     Read_from(0x25, 0x3B); //X_high
@@ -75,6 +75,7 @@ int main(){
   }
 
   chirp();
+  delay_ms(500);
 
         
   if (face == SMILEY) {
