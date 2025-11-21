@@ -45,8 +45,9 @@ void Write(unsigned char Slave_Address, unsigned char Data){
 }
 
 void Read_from(unsigned char Slave_Address, unsigned char MEM_ADDRESS){ //slave address needs to be 7 bit, 8 bit mem address
-    Serial.println("Read_from");
+    Serial.println("Read_from entered");
     StartI2C_Trans((Slave_Address<<1)|0xFE); // start write
+        Serial.println("Read_from 1st start fin");
         trigger_action;
         wait_for_completion;
        //sets data register to mem address 
@@ -54,6 +55,7 @@ void Read_from(unsigned char Slave_Address, unsigned char MEM_ADDRESS){ //slave 
         trigger_action;
         wait_for_completion;
     StartI2C_Trans((Slave_Address<<1)& 0x01); //start read
+        Serial.println("Read_from 2nd start fin");
         trigger_action; TWCR |= (1<<TWEA); // sends ack 
         wait_for_completion; 
 
