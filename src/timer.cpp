@@ -1,5 +1,6 @@
 #include <avr/io.h>
 #include <timer.h>
+#include <Arduino.h>
 
 void initTimer(){
 //Timer 0
@@ -86,11 +87,12 @@ void update_duty(double duty){
 
 
 void chirp(){
-    for (int i = 1000; i <= 4000; i += 100){
+    for (int i = 4000; i <= 1000; i -= 100){
         ICR3 = i;
         update_duty(.6);
         delay_ms(5);
     }
+    Serial.println(ICR3);
     ICR3 = 1000;
     update_duty(.6);
 }
