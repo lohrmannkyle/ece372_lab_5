@@ -2,7 +2,7 @@
 #include <avr/io.h>
 #include <Arduino.h>
 
-#define wait_for_completion while (!(TWCR & (1<<TWINT))); //acknowledge flag goes up
+#define wait_for_completion (while (!(TWCR & (1<<TWINT)))); //acknowledge flag goes up
 #define trigger_action (TWCR = (1<<TWINT)|(1<<TWEN)); //sets interrupt and enable bits to 1
 
 void InitI2C(){
