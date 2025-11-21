@@ -25,7 +25,7 @@ int main(){
   // toggle exists to allow silencing the alarm but as soon as accelerometer is back within accepted axis values
   // it resets. So say you go smiley -> frowny (alarm activates) -> button (silences) -> smiley -> frowny (alarm reactivates)
   int toggle = 0;
-  StartI2C_Trans(0x25); //slave 0
+  StartI2C_Trans(0x25); //slave 0 address
   Write(0x6B, 0x00);
 
   while(1){
@@ -43,6 +43,7 @@ int main(){
     Serial.print("XDATA: ");
     Serial.println(X_data);
 
+    StopI2C_Trans();
     switch(state){
       case WAIT_PRESS: {
         break;
