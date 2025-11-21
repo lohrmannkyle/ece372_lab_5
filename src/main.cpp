@@ -13,7 +13,7 @@ volatile switch_state state = WAIT_PRESS;
 volatile face_state face = SMILEY;
 
 int main(){
-  Serial.begin(9600);
+  Serial.begin(9600/2);
   init_timer_1();
   init_timer_3();
   init_switch();
@@ -29,6 +29,7 @@ int main(){
   Write(0x6B, 0x00);
 
   while(1){
+    
     Read_from(0x25, 0x3B); //X_high
     unsigned char XHIGH = Read_data();
 
@@ -88,6 +89,7 @@ int main(){
 
 //button press inturrupt
 ISR(PCINT2_vect){
+  Serial.println("In interrupt");
     if (state == WAIT_PRESS){
         state = DEBOUNCE_PRESS;
     } else if (state == WAIT_RELEASE) {
