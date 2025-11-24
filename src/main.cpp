@@ -13,11 +13,11 @@ volatile switch_state state = WAIT_PRESS;
 volatile face_state face = SMILEY;
 
 int main(){
+  sei();
   Serial.begin(9600);
   init_timer_1();
   init_timer_3();
   init_switch();
-  sei();
   init_spi();
   init_matrix();
   InitI2C();
@@ -26,19 +26,23 @@ int main(){
   // toggle exists to allow silencing the alarm but as soon as accelerometer is back within accepted axis values
   // it resets. So say you go smiley -> frowny (alarm activates) -> button (silences) -> smiley -> frowny (alarm reactivates)
   int toggle = 0;
-  Write(0x6B, 0x00);
+
+  Write(0b1101000, 0x6B);
+  Write(0b1101000, 0x00);
   StopI2C_Trans();
+  delay_ms(1);
+
   while(1){
     
-    Read_from(0x25, 0x3B); //X_high
-    StopI2C_Trans();
+    Read_from(0b1101000, 0x3B); //X_high
+    //StopI2C_Trans();
     unsigned char XHIGH = Read_data();
 
-    Read_from(0x25, 0x3C); //X_Low
-    StopI2C_Trans();
+    Read_from(0b1101000, 0x3C); //X_Low
+    //StopI2C_Trans();
     unsigned char XLOW = Read_data();
 
-    unsigned char X_data = (XHIGH & 0xF0) | (XLOW & 0X0F);
+    unsigned int X_data = (XHIGH & 0xF0) | (XLOW & 0X0F);
     Serial.print("XHIGH: ");
     Serial.println(XHIGH);
     Serial.print("XLOW: ");
@@ -74,8 +78,9 @@ int main(){
     }
   }
 
-  chirp();
-  delay_ms(500);
+  //chirp();
+  //delay_ms(500);
+  Serial.println("In interrupt");
 
         
   if (face == SMILEY) {
