@@ -169,20 +169,20 @@ int main(){
     }
   }
 
-  //chirp();
-  //delay_ms(500);
+  chirp();
+  delay_ms(500);
 
-  /*    
+  
   if (face == SMILEY) {
-      //set_smile();
+      set_smile();
       toggle = 0;
   } else { 
-      //set_frown();
+      set_frown();
       if (toggle == 0){
           chirp();
       }
     }
-    */
+    
   }
   return 0;
 }
