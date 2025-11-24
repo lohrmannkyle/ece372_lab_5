@@ -11,10 +11,10 @@ void InitI2C(){
   
 // generate a 100kHz clock rate
 // SCL freq = 16Mhz/(16 + 2(TWBR)*1)
-// Table 24-7 Prescaler value is 1 so TWPS0 = 1 and TWPS1 = 0.
-  TWSR &= ~((1 << TWPS1));
-  TWSR |= (1 << TWPS0);
-  TWBR = 12; // bit rate generator = 100k  (TWBR = 12)
+// Table 24-7 Prescaler value is 1 so TWPS0 = 0 and TWPS1 = 0.
+  TWSR &= ~((1 << TWPS1)|(1 << TWPS0));
+  //TWSR |= (1 << TWPS0);
+  TWBR = 12; // bit rate generator = 400k  (TWBR = 12)
 
   TWCR |= (1 << TWINT | 1 << TWEN); // enable two wire interface
 
