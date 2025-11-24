@@ -14,7 +14,7 @@ void InitI2C(){
 // Table 24-7 Prescaler value is 1 so TWPS0 = 0 and TWPS1 = 0.
   TWSR &= ~((1 << TWPS1)|(1 << TWPS0));
   //TWSR |= (1 << TWPS0);
-  TWBR = 12; // bit rate generator = 400k  (TWBR = 12)
+  TWBR = 0x0C; // bit rate generator = 400k  (TWBR = 12)
 
   TWCR |= (1 << TWINT | 1 << TWEN); // enable two wire interface
 
@@ -22,7 +22,7 @@ void InitI2C(){
 
 void StartI2C_Trans(unsigned char Slave_Address){
     Serial.println("StartI2C");
-    Serial.println(Slave_Address);
+    Serial.println(TWSR);
     TWCR = ((1 << TWEN) | (1 << TWINT) | (1 << TWSTA));
     wait_for_completion;
     TWDR = Slave_Address; 
