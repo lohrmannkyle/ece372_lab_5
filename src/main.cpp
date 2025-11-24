@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <avr/io.h>
-#include <cmath>
+#include <math.h>
 
 #include "timer.h"
 #include "spi.h"
@@ -68,14 +68,14 @@ int main(){
     //Serial.println("Here");
     
     //StopI2C_Trans();
-    unsigned char YHIGH = Read_data();
+    signed char YHIGH = Read_data();
     //Serial.println(YHIGH);
     Read_from(0b1101000, 0x3E); //Y_Low
     //Serial.println("Here2");
     
     //StopI2C_Trans();
     //Serial.println(TWSR, HEX);
-    unsigned char YLOW = Read_data();
+    signed char YLOW = Read_data();
     StopI2C_Trans();
     //Serial.println(TWSR, HEX);
 
@@ -93,14 +93,14 @@ int main(){
     //Serial.println("Here");
     
     //StopI2C_Trans();
-    unsigned char ZHIGH = Read_data();
+    signed char ZHIGH = Read_data();
     //Serial.println(YHIGH);
     Read_from(0b1101000, 0x40); //Z_Low
     //Serial.println("Here2");
     
     //StopI2C_Trans();
     //Serial.println(TWSR, HEX);
-    unsigned char ZLOW = Read_data();
+    signed char ZLOW = Read_data();
     StopI2C_Trans();
     //Serial.println(TWSR, HEX);
 
@@ -110,27 +110,27 @@ int main(){
     //Serial.print("XLOW: ");
     //Serial.println(XLOW);
     Serial.print("ZDATA: ");
-    Serial.println(Y_data);
+    Serial.println(Z_data);
 
     //Z-angles
 
     //README: add control logic for x and y close to 0 later so divergences are dealt with
-    theta = atan(z/x);
-    phi = atan(z/y);
+    float theta = atan(Z_data/X_data);
+    float phi = atan(Z_data/Y_data);
 
-    tolerance = 1e-6; //change this to whatever we experimentally verify
+    float tolerance = 1e-6; //change this to whatever we experimentally verify
     if (theta <= tolerance){
-      Serial.println('within tolerance, theta')
+      Serial.println('within tolerance, theta');
     }
     else{
-      Serial.println('not within tolerance,theta')
+      Serial.println('not within tolerance,theta');
     }
 
     if (phi <= tolerance){
-      Serial.println('within tolerance, phi')
+      Serial.println('within tolerance, phi');
     }
     else{
-      Serial.println('not within tolerance, phi')
+      Serial.println('not within tolerance, phi');
     }
 
     switch(state){
