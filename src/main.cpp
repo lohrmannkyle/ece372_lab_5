@@ -54,7 +54,7 @@ int main(){
     //StopI2C_Trans();
     //Serial.println(TWSR, HEX);
 
-    signed int X_data = (XHIGH & 0xF0) | (XLOW & 0X0F);
+    signed int X_data = ((XHIGH<<8 & 0xF0)) | (XLOW);
     //Serial.print("XHIGH: ");
     //Serial.println(XHIGH);
     //Serial.print("XLOW: ");
@@ -77,7 +77,7 @@ int main(){
     //StopI2C_Trans();
     //Serial.println(TWSR, HEX);
 
-    signed int Y_data = (YHIGH & 0xF0) | (YLOW & 0X0F);
+    signed int Y_data = ((YHIGH<<8 & 0xF0)) | (YLOW);
     //Serial.print("XHIGH: ");
     //Serial.println(XHIGH);
     //Serial.print("XLOW: ");
@@ -103,7 +103,7 @@ int main(){
     StopI2C_Trans();
     //Serial.println(TWSR, HEX);
 
-    signed int Z_data = (ZHIGH & 0xF0) | (ZLOW & 0X0F);
+    signed int Z_data = ((ZHIGH<<8 & 0xF0) | (ZLOW));
     //Serial.print("XHIGH: ");
     //Serial.println(XHIGH);
     //Serial.print("XLOW: ");
