@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <avr/io.h>
+#include <cmath>
 
 #include "timer.h"
 #include "spi.h"
@@ -35,6 +36,8 @@ int main(){
 
 
   while(1){
+
+    //XDATA
     //Serial.println(TWSR, HEX);
     Read_from(0b1101000, 0x3B); //X_high
     //Serial.println("Here");
@@ -58,6 +61,77 @@ int main(){
     //Serial.println(XLOW);
     Serial.print("XDATA: ");
     Serial.println(X_data);
+
+    //YDATA
+    //Serial.println(TWSR, HEX);
+    Read_from(0b1101000, 0x3D); //Y_high
+    //Serial.println("Here");
+    
+    //StopI2C_Trans();
+    unsigned char YHIGH = Read_data();
+    //Serial.println(YHIGH);
+    Read_from(0b1101000, 0x3E); //Y_Low
+    //Serial.println("Here2");
+    
+    //StopI2C_Trans();
+    //Serial.println(TWSR, HEX);
+    unsigned char YLOW = Read_data();
+    StopI2C_Trans();
+    //Serial.println(TWSR, HEX);
+
+    signed int Y_data = (YHIGH & 0xF0) | (YLOW & 0X0F);
+    //Serial.print("XHIGH: ");
+    //Serial.println(XHIGH);
+    //Serial.print("XLOW: ");
+    //Serial.println(XLOW);
+    Serial.print("YDATA: ");
+    Serial.println(Y_data);
+
+    //ZDATA
+    //Serial.println(TWSR, HEX);
+    Read_from(0b1101000, 0x3F); //Z_high
+    //Serial.println("Here");
+    
+    //StopI2C_Trans();
+    unsigned char ZHIGH = Read_data();
+    //Serial.println(YHIGH);
+    Read_from(0b1101000, 0x40); //Z_Low
+    //Serial.println("Here2");
+    
+    //StopI2C_Trans();
+    //Serial.println(TWSR, HEX);
+    unsigned char ZLOW = Read_data();
+    StopI2C_Trans();
+    //Serial.println(TWSR, HEX);
+
+    signed int Z_data = (ZHIGH & 0xF0) | (ZLOW & 0X0F);
+    //Serial.print("XHIGH: ");
+    //Serial.println(XHIGH);
+    //Serial.print("XLOW: ");
+    //Serial.println(XLOW);
+    Serial.print("ZDATA: ");
+    Serial.println(Y_data);
+
+    //Z-angles
+
+    //README: add control logic for x and y close to 0 later so divergences are dealt with
+    theta = atan(z/x);
+    phi = atan(z/y);
+
+    tolerance = 1e-6; //change this to whatever we experimentally verify
+    if (theta <= tolerance){
+      Serial.println('within tolerance, theta')
+    }
+    else{
+      Serial.println('not within tolerance,theta')
+    }
+
+    if (phi <= tolerance){
+      Serial.println('within tolerance, phi')
+    }
+    else{
+      Serial.println('not within tolerance, phi')
+    }
 
     switch(state){
       case WAIT_PRESS: {
