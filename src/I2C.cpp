@@ -47,12 +47,12 @@ void Write(unsigned char Slave_Address, unsigned char Data){
 }
 
 void Read_from(unsigned char Slave_Address, unsigned char MEM_ADDRESS){ //slave address needs to be 7 bit, 8 bit mem address
-    //Serial.println("Read_from entered");
+    Serial.println("Read_from entered");
     //Serial.println(TWSR, HEX);
     //Serial.println(Slave_Address);
     //Serial.println(TWSR, HEX);
     Write(Slave_Address, MEM_ADDRESS);
-     TWCR |= ((1<<TWSTA)|(1<<TWINT)|(1<<TWEN));
+     TWCR = ((1<<TWSTA)|(1<<TWINT)|(1<<TWEN));
     wait_for_completion;
     //StartI2C_Trans((Slave_Address<<1)|0xFE); // start write
         //Serial.println("Read_from 1st start fin");
