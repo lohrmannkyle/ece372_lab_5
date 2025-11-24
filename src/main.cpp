@@ -51,7 +51,7 @@ int main(){
     //StopI2C_Trans();
     //Serial.println(TWSR, HEX);
     signed char XLOW = Read_data();
-    StopI2C_Trans();
+    //StopI2C_Trans();
     //Serial.println(TWSR, HEX);
 
     signed int X_data = (XHIGH & 0xF0) | (XLOW & 0X0F);
@@ -74,9 +74,9 @@ int main(){
     //Serial.println("Here2");
     
     //StopI2C_Trans();
-    //Serial.println(TWSR, HEX);
+    Serial.println(TWSR, HEX);
     signed char YLOW = Read_data();
-    StopI2C_Trans();
+    //StopI2C_Trans();
     //Serial.println(TWSR, HEX);
 
     signed int Y_data = (YHIGH & 0xF0) | (YLOW & 0X0F);
