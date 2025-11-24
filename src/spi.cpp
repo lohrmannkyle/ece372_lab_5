@@ -22,7 +22,7 @@ void write(uint8_t data){
 
     // wait for buffer to clear before updating
     SPDR = data;
-    //while (!(SPSR & (1 << SPIF)));
+    while (!(SPSR & (1 << SPIF)));
 
 }
 
