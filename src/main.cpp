@@ -115,6 +115,15 @@ int main(){
     //Z-angles
 
     //README: add control logic for x and y close to 0 later so divergences are dealt with
+   
+    float zero_tolerance = 1e-6;
+    if ((fabs(X_data) <= zero_tolerance) && (fabs(Y_data) <= zero_tolerance)){
+      Serial.println('both angles within tolerance');
+    }
+    else{
+      Serial.println('one or more angles not within tolerance')
+    }
+    /** 
     float theta = atan(Z_data/X_data);
     float phi = atan(Z_data/Y_data);
 
@@ -132,7 +141,7 @@ int main(){
     else{
       Serial.println('not within tolerance, phi');
     }
-
+    **/
     switch(state){
       case WAIT_PRESS: {
         break;
