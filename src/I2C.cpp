@@ -55,7 +55,7 @@ void Read_from(unsigned char Slave_Address, unsigned char MEM_ADDRESS){ //slave 
      TWCR |= ((1<<TWSTA)|(1<<TWINT)|(1<<TWEN));
     wait_for_completion;
     //StartI2C_Trans((Slave_Address<<1)|0xFE); // start write
-        //Serial.println("Read_from 1st start fin");
+        Serial.println("Read_from 1st start fin");
         //trigger_action;
         //wait_for_completion;
        //sets data register to mem address 
