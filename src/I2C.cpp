@@ -22,9 +22,9 @@ void InitI2C(){
 
 void StartI2C_Trans(unsigned char Slave_Address){
     //Serial.println("StartI2C");
-    //Serial.println(TWSR, HEX);
     TWCR = ((1 << TWEN) | (1 << TWINT) | (1 << TWSTA));
     wait_for_completion;
+    //Serial.println(TWSR, HEX);
     TWDR = Slave_Address; 
     //Serial.println("StartI2C end");
 }
@@ -50,6 +50,7 @@ void Read_from(unsigned char Slave_Address, unsigned char MEM_ADDRESS){ //slave 
     //Serial.println("Read_from entered");
     //Serial.println(TWSR, HEX);
     //Serial.println(Slave_Address);
+    //Serial.println(TWSR, HEX);
     Write(Slave_Address, MEM_ADDRESS);
     trigger_action; TWCR |= (1<<TWSTA);
     wait_for_completion;
@@ -65,6 +66,9 @@ void Read_from(unsigned char Slave_Address, unsigned char MEM_ADDRESS){ //slave 
        // Serial.println("Read_from 2nd start fin");
         trigger_action; TWCR |= (1<<TWEA); // sends ack 
         wait_for_completion; 
+        trigger_action;
+        wait_for_completion;
+        TWCR = ((1<<TWSTO)|(1<<TWEN)|(1<<TWINT));
 
 }
 

@@ -22,6 +22,7 @@ int main(){
   init_matrix();
   InitI2C();
   set_smile();
+
     
   // toggle exists to allow silencing the alarm but as soon as accelerometer is back within accepted axis values
   // it resets. So say you go smiley -> frowny (alarm activates) -> button (silences) -> smiley -> frowny (alarm reactivates)
@@ -32,25 +33,32 @@ int main(){
   StopI2C_Trans();
   delay_ms(1);
 
+
   while(1){
-    
+    //Serial.println(TWSR, HEX);
     Read_from(0b1101000, 0x3B); //X_high
+    //Serial.println("Here");
+    
     //StopI2C_Trans();
     unsigned char XHIGH = Read_data();
-
+    //Serial.println(XHIGH);
     Read_from(0b1101000, 0x3C); //X_Low
+    //Serial.println("Here2");
+    
     //StopI2C_Trans();
+    //Serial.println(TWSR, HEX);
     unsigned char XLOW = Read_data();
+    StopI2C_Trans();
+    //Serial.println(TWSR, HEX);
 
-    unsigned int X_data = (XHIGH & 0xF0) | (XLOW & 0X0F);
-    Serial.print("XHIGH: ");
-    Serial.println(XHIGH);
-    Serial.print("XLOW: ");
-    Serial.println(XLOW);
+    signed int X_data = (XHIGH & 0xF0) | (XLOW & 0X0F);
+    //Serial.print("XHIGH: ");
+    //Serial.println(XHIGH);
+    //Serial.print("XLOW: ");
+    //Serial.println(XLOW);
     Serial.print("XDATA: ");
     Serial.println(X_data);
 
-    StopI2C_Trans();
     switch(state){
       case WAIT_PRESS: {
         break;
@@ -80,19 +88,18 @@ int main(){
 
   //chirp();
   //delay_ms(500);
-  Serial.println("In interrupt");
 
-        
+  /*    
   if (face == SMILEY) {
-      set_smile();
+      //set_smile();
       toggle = 0;
   } else { 
-      set_frown();
+      //set_frown();
       if (toggle == 0){
           chirp();
       }
     }
-    
+    */
   }
   return 0;
 }
