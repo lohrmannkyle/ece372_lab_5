@@ -22,9 +22,9 @@ void InitI2C(){
 
 void StartI2C_Trans(unsigned char Slave_Address){
     Serial.println("StartI2C");
-    TWCR = ((1 << TWEN) | (1 << TWINT) | (1 << TWSTA));
+    TWCR |= ((1 << TWEN) | (1 << TWINT) | (1 << TWSTA));
+    Serial.println(TWSR, HEX);
     wait_for_completion;
-    //Serial.println(TWSR, HEX);
     TWDR = Slave_Address; 
     //Serial.println("StartI2C end");
 }
