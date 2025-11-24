@@ -121,7 +121,7 @@ int main(){
       Serial.println('both angles within tolerance');
     }
     else{
-      Serial.println('one or more angles not within tolerance')
+      Serial.println('one or more angles not within tolerance');
     }
     /** 
     float theta = atan(Z_data/X_data);
