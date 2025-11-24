@@ -43,14 +43,14 @@ int main(){
     //Serial.println("Here");
     
     //StopI2C_Trans();
-    signed char XHIGH = Read_data();
+    unsigned char XHIGH = Read_data();
     //Serial.println(XHIGH);
     Read_from(0b1101000, 0x3C); //X_Low
     //Serial.println("Here2");
     
     StopI2C_Trans();
     //Serial.println(TWSR, HEX);
-    signed char XLOW = Read_data();
+    unsigned char XLOW = Read_data();
     //StopI2C_Trans();
     //Serial.println(TWSR, HEX);
 
@@ -61,20 +61,18 @@ int main(){
     //Serial.println(XLOW);
     Serial.print("XDATA: ");
     Serial.println(X_data);
-
+/*
     //YDATA
     //Serial.println(TWSR, HEX);
     Read_from(0b1101000, 0x3D); //Y_high
     //Serial.println("Here");
-    
     //StopI2C_Trans();
     signed char YHIGH = Read_data();
-    //Serial.println(YHIGH);
+    Serial.println("Pre-YLow");
     Read_from(0b1101000, 0x3E); //Y_Low
-    //Serial.println("Here2");
+    Serial.println("Here2");
     
     StopI2C_Trans();
-    Serial.println(TWSR, HEX);
     signed char YLOW = Read_data();
     //StopI2C_Trans();
     //Serial.println(TWSR, HEX);
@@ -118,10 +116,10 @@ int main(){
    
     float zero_tolerance = 1e-6;
     if ((fabs(X_data) <= zero_tolerance) && (fabs(Y_data) <= zero_tolerance)){
-      Serial.println('both angles within tolerance');
+      Serial.println("both angles within tolerance");
     }
     else{
-      Serial.println('one or more angles not within tolerance');
+      Serial.println("one or more angles not within tolerance");
     }
     /** 
     float theta = atan(Z_data/X_data);
@@ -169,8 +167,8 @@ int main(){
     }
   }
 
-  chirp();
-  delay_ms(500);
+  //chirp();
+  //delay_ms(500);
 
   
   if (face == SMILEY) {
