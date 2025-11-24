@@ -60,7 +60,8 @@ int main(){
     //Serial.print("XLOW: ");
     //Serial.println(XLOW);
     Serial.print("XDATA: ");
-    Serial.println(X_data);
+    Serial.print(X_data);
+    Serial.print(" ");
 
     //YDATA
     //Serial.println(TWSR, HEX);
@@ -68,9 +69,8 @@ int main(){
     //Serial.println("Here");
     //StopI2C_Trans();
     signed char YHIGH = Read_data();
-    Serial.println("Pre-YLow");
     Read_from(0b1101000, 0x3E); //Y_Low
-    Serial.println("Here2");
+    
     
     StopI2C_Trans();
     signed char YLOW = Read_data();
@@ -83,7 +83,8 @@ int main(){
     //Serial.print("XLOW: ");
     //Serial.println(XLOW);
     Serial.print("YDATA: ");
-    Serial.println(Y_data);
+    Serial.print(Y_data);
+    Serial.print(" ");
 
     //ZDATA
     //Serial.println(TWSR, HEX);
@@ -108,12 +109,13 @@ int main(){
     //Serial.print("XLOW: ");
     //Serial.println(XLOW);
     Serial.print("ZDATA: ");
-    Serial.println(Z_data);
+    Serial.print(Z_data);
+    Serial.println("");
 
     //Z-angles
 
     //README: add control logic for x and y close to 0 later so divergences are dealt with
-   
+   /*
     float zero_tolerance = 1e-6;
     if ((fabs(X_data) <= zero_tolerance) && (fabs(Y_data) <= zero_tolerance)){
       Serial.println("both angles within tolerance");
