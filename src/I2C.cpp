@@ -14,7 +14,7 @@ void InitI2C(){
   TWSR &= ~((1 << TWPS1)|(1 << TWPS0));
   //TWSR |= (1 << TWPS0);
   TWBR = 0x48; // bit rate generator = 100k  (TWBR = 48)
-  TWCR = (1 << TWINT | 1 << TWEN); // enable two wire interface
+  TWCR = ((1 << TWINT) | (1 << TWEN)); // enable two wire interface
 }
 
 void StartI2C_Trans(unsigned char Slave_Address){

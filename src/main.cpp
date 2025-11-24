@@ -43,14 +43,14 @@ int main(){
     //Serial.println("Here");
     
     //StopI2C_Trans();
-    signed char XHIGH = Read_data();
+    signed int XHIGH = Read_data();
     //Serial.println(XHIGH);
     Read_from(0b1101000, 0x3C); //X_Low
     //Serial.println("Here2");
     
     StopI2C_Trans();
     //Serial.println(TWSR, HEX);
-    signed char XLOW = Read_data();
+    signed int XLOW = Read_data();
     //StopI2C_Trans();
     //Serial.println(TWSR, HEX);
 
@@ -68,12 +68,12 @@ int main(){
     Read_from(0b1101000, 0x3D); //Y_high
     //Serial.println("Here");
     //StopI2C_Trans();
-    signed char YHIGH = Read_data();
+    signed int YHIGH = Read_data();
     Read_from(0b1101000, 0x3E); //Y_Low
     
     
     StopI2C_Trans();
-    signed char YLOW = Read_data();
+    signed int YLOW = Read_data();
     //StopI2C_Trans();
     //Serial.println(TWSR, HEX);
 
@@ -92,14 +92,14 @@ int main(){
     //Serial.println("Here");
     
     //StopI2C_Trans();
-    signed char ZHIGH = Read_data();
+    signed int ZHIGH = Read_data();
     //Serial.println(YHIGH);
     Read_from(0b1101000, 0x40); //Z_Low
     //Serial.println("Here2");
     
     //StopI2C_Trans();
     //Serial.println(TWSR, HEX);
-    signed char ZLOW = Read_data();
+    signed int ZLOW = Read_data();
     StopI2C_Trans();
     //Serial.println(TWSR, HEX);
 
