@@ -7,21 +7,20 @@
 
 void InitI2C(){
     //Serial.println("InitI2C");
-    PRR0 &= ~(1 << PRTWI);  //Restart oscilator
-  
+    PRR0 &= ~(1 << PRTWI);  //Restart oscilator 
 // generate a 100kHz clock rate
 // SCL freq = 16Mhz/(16 + 2(TWBR)*1)
 // Table 24-7 Prescaler value is 1 so TWPS0 = 0 and TWPS1 = 0.
-  TWSR &= ~((1 << TWPS1));//|(1 << TWPS0));
-  TWSR |= (1 << TWPS0);
-  TWBR = 0xC6; // bit rate generator = 100k  (TWBR = 48)
+  TWSR &= ~((1 << TWPS1)|(1 << TWPS0));
+  //TWSR |= (1 << TWPS0);
+  TWBR = 0x48; // bit rate generator = 100k  (TWBR = 48)
   TWCR = (1 << TWINT | 1 << TWEN); // enable two wire interface
 }
 
 void StartI2C_Trans(unsigned char Slave_Address){
-    Serial.println("StartI2C");
+    //Serial.println("StartI2C");
     TWCR = ((1 << TWEN) | (1 << TWINT) | (1 << TWSTA));
-    Serial.println(TWSR, HEX);
+    //Serial.println(TWSR, HEX);
     wait_for_completion;
     //Serial.println(TWSR, HEX);
     TWDR = Slave_Address; 
@@ -50,7 +49,7 @@ void Read_from(unsigned char Slave_Address, unsigned char MEM_ADDRESS){ //slave 
     //Serial.println(TWSR, HEX);
     //Serial.println(Slave_Address);
     Write(Slave_Address, MEM_ADDRESS);
-     TWCR = ((1<<TWSTA)|(1<<TWINT)|(1<<TWEN));
+     TWCR = ((1<<TWINT)|(1<<TWEN));
     wait_for_completion;
     //StartI2C_Trans((Slave_Address<<1)|0xFE); // start write
         //Serial.println("Read_from 1st start fin");
@@ -62,7 +61,7 @@ void Read_from(unsigned char Slave_Address, unsigned char MEM_ADDRESS){ //slave 
         //wait_for_completion;
     StartI2C_Trans((Slave_Address<<1)| 0x01); //start read
         //Serial.println("Read_from 2nd start fin");
-        TWCR |= ((1<<TWEA)|(1<<TWINT)|(1<<TWEN)); // sends ack 
+        TWCR = ((1<<TWEA)|(1<<TWINT)|(1<<TWEN)); // sends ack 
         wait_for_completion; 
         trigger_action;
         wait_for_completion;

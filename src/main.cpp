@@ -43,14 +43,14 @@ int main(){
     //Serial.println("Here");
     
     //StopI2C_Trans();
-    unsigned char XHIGH = Read_data();
+    signed char XHIGH = Read_data();
     //Serial.println(XHIGH);
     Read_from(0b1101000, 0x3C); //X_Low
     //Serial.println("Here2");
     
     StopI2C_Trans();
     //Serial.println(TWSR, HEX);
-    unsigned char XLOW = Read_data();
+    signed char XLOW = Read_data();
     //StopI2C_Trans();
     //Serial.println(TWSR, HEX);
 
@@ -61,7 +61,7 @@ int main(){
     //Serial.println(XLOW);
     Serial.print("XDATA: ");
     Serial.println(X_data);
-/*
+
     //YDATA
     //Serial.println(TWSR, HEX);
     Read_from(0b1101000, 0x3D); //Y_high
