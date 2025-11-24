@@ -121,7 +121,7 @@ int main(){
       Serial.println('both angles within tolerance');
     }
     else{
-      Serial.println('one or more angles not within tolerance')
+      Serial.println('one or more angles not within tolerance');
     }
     /** 
     float theta = atan(Z_data/X_data);
@@ -169,20 +169,20 @@ int main(){
     }
   }
 
-  //chirp();
-  //delay_ms(500);
+  chirp();
+  delay_ms(500);
 
-  /*    
+  
   if (face == SMILEY) {
-      //set_smile();
+      set_smile();
       toggle = 0;
   } else { 
-      //set_frown();
+      set_frown();
       if (toggle == 0){
           chirp();
       }
     }
-    */
+    
   }
   return 0;
 }
