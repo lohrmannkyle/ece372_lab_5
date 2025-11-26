@@ -36,94 +36,110 @@ int main(){
 
 
   while(1){
+    Read_from(0b1101000, 0x1C);
+    int8_t config = Read_data(); 
+    StopI2C_Trans();
 
+    uint8_t mode = (config >> 3) & 0b11;
+
+    Serial.println(mode);
     //XDATA
     //Serial.println(TWSR, HEX);
     Read_from(0b1101000, 0x3B); //X_high
     //Serial.println("Here");
     
     //StopI2C_Trans();
-    signed int XHIGH = Read_data();
+    int8_t XHIGH = Read_data();
     //Serial.println(XHIGH);
     Read_from(0b1101000, 0x3C); //X_Low
     //Serial.println("Here2");
     
     StopI2C_Trans();
     //Serial.println(TWSR, HEX);
-    signed int XLOW = Read_data();
+    int8_t XLOW = Read_data();
     //StopI2C_Trans();
     //Serial.println(TWSR, HEX);
 
-    signed int X_data = ((XHIGH<<8 & 0xF0)) | (XLOW);
-    //Serial.print("XHIGH: ");
-    //Serial.println(XHIGH);
-    //Serial.print("XLOW: ");
-    //Serial.println(XLOW);
+    //signed int X_data = ((XHIGH<<8 & 0xF0)) | (XLOW);
+
+    int16_t X_data = (XHIGH << 8 | XLOW);
+
+    int16_t lsb_constant = 16384; //refer to page 30 on ds
+    
+    //X_data = X_data / lsb_constant;
+    
+    Serial.println(XHIGH);
+    delay_ms(200);
+    Serial.print("XLOW: ");
+    Serial.println(XLOW);
+    delay_ms(200);
     Serial.print("XDATA: ");
     Serial.print(X_data);
-    Serial.print(" ");
+    delay_ms(200);
+    Serial.print("\n");
 
-    //YDATA
-    //Serial.println(TWSR, HEX);
-    Read_from(0b1101000, 0x3D); //Y_high
-    //Serial.println("Here");
-    //StopI2C_Trans();
-    signed int YHIGH = Read_data();
-    Read_from(0b1101000, 0x3E); //Y_Low
+    // //YDATA
+    // //Serial.println(TWSR, HEX);
+    // Read_from(0b1101000, 0x3D); //Y_high
+    // //Serial.println("Here");
+    // //StopI2C_Trans();
+    // signed int YHIGH = Read_data();
+    // Read_from(0b1101000, 0x3E); //Y_Low
     
     
-    StopI2C_Trans();
-    signed int YLOW = Read_data();
-    //StopI2C_Trans();
-    //Serial.println(TWSR, HEX);
+    // StopI2C_Trans();
+    // signed int YLOW = Read_data();
+    // //StopI2C_Trans();
+    // //Serial.println(TWSR, HEX);
 
-    signed int Y_data = ((YHIGH<<8 & 0xF0)) | (YLOW);
-    //Serial.print("XHIGH: ");
-    //Serial.println(XHIGH);
-    //Serial.print("XLOW: ");
-    //Serial.println(XLOW);
-    Serial.print("YDATA: ");
-    Serial.print(Y_data);
-    Serial.print(" ");
+    // signed int Y_data = ((YHIGH<<8 & 0xF0)) | (YLOW);
+    // //Serial.print("XHIGH: ");
+    // //Serial.println(XHIGH);
+    // //Serial.print("XLOW: ");
+    // //Serial.println(XLOW);
+    // Serial.print("YDATA: ");
+    // Serial.print(Y_data);
+    // Serial.print(" ");
 
-    //ZDATA
-    //Serial.println(TWSR, HEX);
-    Read_from(0b1101000, 0x3F); //Z_high
-    //Serial.println("Here");
+    // //ZDATA
+    // //Serial.println(TWSR, HEX);
+    // Read_from(0b1101000, 0x3F); //Z_high
+    // //Serial.println("Here");
     
-    //StopI2C_Trans();
-    signed int ZHIGH = Read_data();
-    //Serial.println(YHIGH);
-    Read_from(0b1101000, 0x40); //Z_Low
-    //Serial.println("Here2");
+    // //StopI2C_Trans();
+    // signed int ZHIGH = Read_data();
+    // //Serial.println(YHIGH);
+    // Read_from(0b1101000, 0x40); //Z_Low
+    // //Serial.println("Here2");
     
-    //StopI2C_Trans();
-    //Serial.println(TWSR, HEX);
-    signed int ZLOW = Read_data();
-    StopI2C_Trans();
-    //Serial.println(TWSR, HEX);
+    // //StopI2C_Trans();
+    // //Serial.println(TWSR, HEX);
+    // signed int ZLOW = Read_data();
+    // StopI2C_Trans();
+    // //Serial.println(TWSR, HEX);
 
-    signed int Z_data = ((ZHIGH<<8 & 0xF0) | (ZLOW));
-    //Serial.print("XHIGH: ");
-    //Serial.println(XHIGH);
-    //Serial.print("XLOW: ");
-    //Serial.println(XLOW);
-    Serial.print("ZDATA: ");
-    Serial.print(Z_data);
-    Serial.println("");
+    // signed int Z_data = ((ZHIGH<<8 & 0xF0) | (ZLOW));
+    // //Serial.print("XHIGH: ");
+    // //Serial.println(XHIGH);
+    // //Serial.print("XLOW: ");
+    // //Serial.println(XLOW);
+    // Serial.print("ZDATA: ");
+    // Serial.print(Z_data);
+    // Serial.println("");
 
     //Z-angles
 
     //README: add control logic for x and y close to 0 later so divergences are dealt with
-   /*
-    float zero_tolerance = 1e-6;
+    /*
+    int zero_tolerance = 0;
     if ((fabs(X_data) <= zero_tolerance) && (fabs(Y_data) <= zero_tolerance)){
       Serial.println("both angles within tolerance");
     }
     else{
       Serial.println("one or more angles not within tolerance");
     }
-    /** 
+    
+  
     float theta = atan(Z_data/X_data);
     float phi = atan(Z_data/Y_data);
 
